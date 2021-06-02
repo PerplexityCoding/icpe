@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
+    "dev": "vite --base=/icpe/",
+    "build": "vite build --base=/icpe/",
+    "serve": "vite preview",
+    "publish": "npm run build && git subtree push --prefix dist origin gh-pages"
   },
   "author": "",
   "license": "ISC",
