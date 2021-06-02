@@ -2,16 +2,18 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import './style.css';
-import data from './data/icpe.geo.json';
 
 let poiLayer = null;
 let map = null;
+let data = null;
 
 const filters = {};
 const filtersFields = ['num_dep', 'code_naf', 'lib_naf', 'regime', 'lib_regime', 'ippc', 'seveso', 'lib_seveso', 'Seveso', 'famille_ic'];
 const selectedFilters = {};
 
-function main() {
+async function main() {
+    await fetchData();
+
     createFilers();
     displayFilters();
 
@@ -32,6 +34,10 @@ function createMap() {
     }).addTo(map);
 
     return map;
+}
+
+async function fetchData() {
+    data = await (await fetch('/data/icpe.geo.json')).json();
 }
 
 function createFilers() {
