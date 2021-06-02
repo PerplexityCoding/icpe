@@ -37,7 +37,7 @@ function createMap() {
 }
 
 async function fetchData() {
-    data = await (await fetch('/data/icpe.geo.json')).json();
+    data = await (await fetch('/icpe/data/icpe.geo.json')).json();
 }
 
 function createFilers() {
