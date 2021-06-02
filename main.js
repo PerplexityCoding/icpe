@@ -6,6 +6,7 @@ import './style.css';
 let poiLayer = null;
 let map = null;
 let data = null;
+let icon = null;
 
 const filters = {};
 const filtersFields = ['num_dep', 'code_naf', 'lib_naf', 'regime', 'lib_regime', 'ippc', 'seveso', 'lib_seveso', 'Seveso', 'famille_ic'];
@@ -17,12 +18,13 @@ async function main() {
     createFilers();
     displayFilters();
 
-    map = createMap();
+    createIcon()
+    createMap();
     reloadICPE();
 }
 
 function createMap() {
-    const map = L.map('mapid').setView([48.393011982751744, -2.6470516079040847], 13);
+    map = L.map('mapid').setView([48.393011982751744, -2.6470516079040847], 13);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -36,8 +38,20 @@ function createMap() {
     return map;
 }
 
+function createIcon() {
+    icon = L.icon({
+        iconUrl: '/icpe/assets/img/map-marker-icon.png',
+
+        iconSize:     [32, 32], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [32, 32], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-16, -32] // point from which the popup should open relative to the iconAnchor
+    });
+}
+
 async function fetchData() {
-    data = await (await fetch('/icpe/data/icpe.geo.json')).json();
+    data = await (await fetch('/icpe/assets/data/icpe.geo.json')).json();
 }
 
 function createFilers() {
@@ -95,6 +109,11 @@ function reloadICPE() {
     }
 
     poiLayer = L.geoJSON(data.features, {
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+                icon
+            });
+        },
         filter: function (feature, layer) {
             const properties = feature.properties;
             const entries = Object.entries(selectedFilters);
