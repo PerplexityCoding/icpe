@@ -1,19 +1,79 @@
+body {
+  margin: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-  display: flex;
 }
 
 #mapid {
-  height: 80vh;
-  flex: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .filters {
+  position: absolute;
   width: 400px;
-  background-color: beige;
+  right: 1rem;
+  background-color: #f5f4f4;
+  margin: 0;
+  z-index: 999;
+  top: 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+  border-bottom: 1px solid #E8EAED;
+  border-top: 1px solid #E8EAED;
+}
+
+fieldset {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding-top: 0.5rem;
+}
+
+select {
+  flex: 1;
+  max-width: 240px;
+  padding: 0.2rem;
+}
+
+input {
+  flex: 1;
+  border-radius: 3px;
+  padding: 0.2rem;
+  border: 1px solid #443b3b
+}
+
+label {
+  margin-right: 0.5rem;
+  width: 125px;
+  text-align: left;
+}
+
+.search-bar {
+  padding-top: 1rem;
+}
+
+.search-result {
+  text-align: left;
+  padding: 1rem;
+}
+
+.filters-title {
+  padding: 1rem;
+  text-align: left;
+  font-weight: bold;
+}
+
+.reset {
+  display: block;
+  margin: 1rem;
 }
